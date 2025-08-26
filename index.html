@@ -38,6 +38,27 @@
       to { background-position: 15px 15px; }
     }
     h1 { color: #58a6ff; }
+    .card {
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin: 10px;
+      border-radius: 8px;
+      background-color: #161b22;
+      transition: transform 0.3s, background-color 0.3s;
+    }
+    .card:hover {
+      transform: scale(1.05);
+      background-color: #1b222b;
+    }
+    table {
+      margin-top: 20px;
+      border-collapse: collapse;
+      width: 80%;
+    }
+    td, th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
   </style>
 </head>
 <body>
@@ -45,24 +66,52 @@
   <pre>
   <code>
 // 👉 Crear una card
-const card = document.createElement('div');
-card.innerHTML = `
-  &lt;div style="border:1px solid #ddd; padding:10px; margin:10px; border-radius:8px;"&gt;
-    &lt;h3&gt;Producto Test QA&lt;/h3&gt;
-    &lt;p&gt;Descripción de prueba generada por script&lt;/p&gt;
-  &lt;/div&gt;
-`;
-document.body.appendChild(card);
+function createCard(title, description) {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = `
+    <h3>${title}</h3>
+    <p>${description}</p>
+  `;
+  // Botón para eliminar la card
+  const btn = document.createElement('button');
+  btn.textContent = 'Eliminar';
+  btn.onclick = () => card.remove();
+  card.appendChild(btn);
+  document.body.appendChild(card);
+  return card;
+}
 
-// 👉 Agregar fila a una tabla
-const table = document.querySelector('table');
-if(table) {
+// 👉 Crear fila en tabla
+function createRow(table, cells = []) {
+  if(!table) return;
   const row = table.insertRow();
-  row.innerHTML = "&lt;td&gt;QA Test Row&lt;/td&gt;&lt;td&gt;✅&lt;/td&gt;";
+  cells.forEach(c => {
+    const cell = row.insertCell();
+    cell.textContent = c;
+  });
+  return row;
+}
+
+// 👉 Crear fila con varias cards
+function createRowWithCards(numCards) {
+  const rowContainer = document.createElement('div');
+  rowContainer.style.display = 'flex';
+  rowContainer.style.justifyContent = 'center';
+  for(let i=1; i<=numCards; i++){
+    createCard('Card ' + i, 'Contenido dinámico').style.margin = '5px';
+    rowContainer.appendChild(createCard('Card ' + i, 'Contenido dinámico'));
+  }
+  document.body.appendChild(rowContainer);
 }
   </code>
   <div class="sparkles"></div>
   </pre>
+
   <p>💡 Copiá este código en la consola de tu navegador y probá!</p>
+
+  <table>
+    <tr><th>Nombre</th><th>Status</th></tr>
+  </table>
 </body>
 </html>
