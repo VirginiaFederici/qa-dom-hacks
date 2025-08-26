@@ -9,11 +9,13 @@
       background: #0d1117;
       color: #c9d1d9;
       display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       flex-direction: column;
+      align-items: center;
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh; /* permite scroll si hay mucho contenido */
     }
+
     pre {
       background: #161b22;
       padding: 20px;
@@ -21,7 +23,9 @@
       box-shadow: 0 0 20px rgba(255,255,255,0.2);
       position: relative;
       overflow: auto;
+      max-width: 90%;
     }
+
     .sparkles {
       position: absolute;
       top: 0;
@@ -33,11 +37,14 @@
       background-size: 15px 15px;
       animation: sparkle 1s infinite linear;
     }
+
     @keyframes sparkle {
       from { background-position: 0 0; }
       to { background-position: 15px 15px; }
     }
+
     h1 { color: #58a6ff; }
+
     .card {
       border: 1px solid #ddd;
       padding: 10px;
@@ -46,15 +53,18 @@
       background-color: #161b22;
       transition: transform 0.3s, background-color 0.3s;
     }
+
     .card:hover {
       transform: scale(1.05);
       background-color: #1b222b;
     }
+
     table {
       margin-top: 20px;
       border-collapse: collapse;
       width: 80%;
     }
+
     td, th {
       border: 1px solid #ddd;
       padding: 8px;
@@ -63,6 +73,7 @@
 </head>
 <body>
   <h1>✨ QA DOM Hacks ✨</h1>
+
   <pre>
   <code>
 // 👉 Crear una card
@@ -99,7 +110,6 @@ function createRowWithCards(numCards) {
   rowContainer.style.display = 'flex';
   rowContainer.style.justifyContent = 'center';
   for(let i=1; i<=numCards; i++){
-    createCard('Card ' + i, 'Contenido dinámico').style.margin = '5px';
     rowContainer.appendChild(createCard('Card ' + i, 'Contenido dinámico'));
   }
   document.body.appendChild(rowContainer);
